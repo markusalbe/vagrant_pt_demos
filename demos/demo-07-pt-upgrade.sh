@@ -16,24 +16,4 @@ $slave_1/use -v -t -e "STOP SLAVE";
 
 
 slow_log=$(get_slow_log_filename "master-active")
-pt-upgrade $slow_log h=master-active,P=13306,u=demo,p=demo h=slave-1,P=13307,u=demo,p=demo
-
-
-
-
-
-
-
-
-
-since=`date +"%F %T"`
-slap_it "master-active";
-until=`date +"%F %T"`
-
-slow_log=`$master_active/use -B -N -e "SELECT @@global.slow_query_log_file";`
-
-pause_msg "now we have stuff to digest in $slow_log";
-
-set -x
-pt-query-digest --since="$since" --until="$until" $slow_log --limit 10
-set +x
+pt-upgrade --query "SELECT DISTINCT c FROM sbtest1 WHERE id BETWEEN 443733 AND 443733+999 ORDER BY c" h=master-active,P=13306,u=demo,p=demo,D=sbtest h=slave-1,P=13307,u=demo,p=demo,D=sbtest

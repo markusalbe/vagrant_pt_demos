@@ -18,7 +18,7 @@ pause_msg "";
 
 $slave_1/use -e "STOP SLAVE";
 set -x
-pt-online-schema-change --dry-run --alter "ADD INDEX id_c(id,c), MODIFY COLUMN c VARCHAR(127)" h=master-active,P=13306,u=demo,p=demo,D=sbtest,t=sbtest1
+pt-online-schema-change --dry-run --alter "MODIFY COLUMN c VARCHAR(127)" h=master-active,P=13306,u=demo,p=demo,D=sbtest,t=sbtest1
 
 pause_msg "the above dry-run looks fine, so we'll proceed with the change"
-pt-online-schema-change --execute --alter "ADD INDEX id_c(id,c), MODIFY COLUMN c VARCHAR(127)" h=master-active,P=13306,u=demo,p=demo,D=sbtest,t=sbtest1
+pt-online-schema-change --execute --alter "MODIFY COLUMN c VARCHAR(127)" h=master-active,P=13306,u=demo,p=demo,D=sbtest,t=sbtest1

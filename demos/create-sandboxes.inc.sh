@@ -365,16 +365,15 @@ sysbench_it () {
 
     $SB/use -v -t -e "DROP DATABASE IF EXISTS sbtest; CREATE DATABASE IF NOT EXISTS sbtest"
     echo "preparing sysbench tests..."
-    time sysbench_action "prepare";
+    
+    
+    time sysbench_action "master-active" "prepare";
     
     echo "silently doing bad things to the sbtest1 table..." 
     $SB/use -e "ALTER TABLE sbtest.sbtest1 MODIFY COLUMN c TEXT"
     
     echo "starting sysbench tests..."
-    
-    sysbench "prepare"
-    
-    sysbench "run"
+    time sysbench_action "master-active" "run"
 }
 
 sysbench_action () {
@@ -405,14 +404,12 @@ sysbench_action () {
 
     SYSBENCH="sysbench --test=$DEMOS_HOME/assets/sysbench/oltp.lua  --report-interval=5 \
                 --oltp_tables_count=1 --oltp-table-size=600000 --oltp-dist-type=special --oltp-read-only=off \
-                --oltp-range-size=1000 --oltp-index-updates=2 --oltp_non_index_updates=2 --oltp-order-ranges=2  --oltp-distinct-ranges=2 \
+                --oltp-range-size=10000 --oltp-index-updates=2 --oltp_non_index_updates=2 --oltp-order-ranges=2  --oltp-distinct-ranges=2 \
                 --rand-init=on  --rand-type=pareto \
                 --mysql-socket=$SB_SOCKET --mysql-user=demo --mysql-password=demo \
-                --num-threads=30 --max-time=45 --max-requests=0 --percentile=99"
-                
-                
-    $SB/use -v -t -e "DROP DATABASE IF EXISTS sbtest; CREATE DATABASE IF NOT EXISTS sbtest"
-    time $SYSBENCH $ACTION;
+                --num-threads=25 --max-time=45 --max-requests=0 --percentile=99"
+
+    $SYSBENCH $ACTION;
 }
 
 trace_it () {

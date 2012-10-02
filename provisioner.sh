@@ -117,7 +117,7 @@ test -d /usr/local/demos/ || {
         wget -c --progress=bar:force http://bazaar.launchpad.net/~percona-dev/percona-benchmark-result/sysbench.oltp.intel520/download/vadim%40percona.com-20120511183144-dksld1z0qqzmgcwu/select_random_ranges-20120511183137-pyv3pzq9ubh0o3ee-217/select_random_ranges.lua
         wget -c --progress=bar:force http://bazaar.launchpad.net/~percona-dev/percona-benchmark-result/sysbench.oltp.intel520/download/vadim%40percona.com-20120511183144-dksld1z0qqzmgcwu/update_index.lua-20120511183137-pyv3pzq9ubh0o3ee-219/update_index.lua
         wget -c --progress=bar:force http://bazaar.launchpad.net/~percona-dev/percona-benchmark-result/sysbench.oltp.intel520/download/vadim%40percona.com-20120511183144-dksld1z0qqzmgcwu/update_non_index.lua-20120511183137-pyv3pzq9ubh0o3ee-220/update_non_index.lua
-    } fi
+    } fi 
     chown --recursive vagrant.vagrant /usr/local/demos/
 }
 
